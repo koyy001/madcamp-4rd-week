@@ -11,7 +11,7 @@ class Network:
         self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         #self.client.settimeout(10.0)
         #self.host = "192.168.56.1"
-        self.host = "192.249.18.162"
+        self.host = "143.248.225.57"
         self.port = 80
         self.addr = (self.host, self.port)
 
@@ -39,7 +39,7 @@ class Network:
         val = self.client.recv(8)
         return int(val.decode())
 
-    def send(self, data, pick=False):
+    def send(self, data, pick=True):
         """
         sends information to the server
         :param data: str

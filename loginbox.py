@@ -1,6 +1,6 @@
 import pygame
+
 pygame.init()
-screen = pygame.display.set_mode((900, 700))
 #COLOR_INACTIVE = pygame.Color('lightskyblue3')
 COLOR_INACTIVE = pygame.Color(255, 255, 255, 255)
 #COLOR_ACTIVE = pygame.Color('dodgerblue2')
@@ -121,6 +121,17 @@ def fn_register(username, password, nickname, server): #button2가 눌렸을 때
     data = "register " + username + " " + password + " " + nickname
     currentid = server.login(data)
     return currentid
+def fn_create(server):
+    data = "create"
+    roomnum = server.send(data)
+    print(roomnum)
+    return roomnum
+def fn_enter(server, roomcode):
+    print("button2")
+    data = "enter " + roomcode
+    roomnum = server.send(data)
+    print(roomnum)
+    return roomnum
 def fn_loginmod() :
     return 1
 def fn_regmod():
