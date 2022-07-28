@@ -58,6 +58,9 @@ register_img = pygame.image.load("register.png")
 register_img = pygame.transform.scale(register_img, (900, 700))
 balloon_img = "asset/balloon/yellow.png"
 
+create_room_img = pygame.image.load("createroom.png")
+create_room_img = pygame.transform.scale(create_room_img, (900, 700))
+
 ready_img = pygame.image.load("asset/mapchoose/ready.png").convert_alpha()
 ready_img = pygame.transform.scale(ready_img, (1000, 430))
 be_img = pygame.image.load("asset/mapchoose/ready_be.png").convert_alpha() #배찌 로비 이미지
@@ -97,8 +100,19 @@ def redraw_window(players, balloons, booms, current_id, sprites):
     for i in players: ## {1: {data}, 2:{data}, ...}
         if i != current_id: 
             p = player(screen, players[i]["x"], players[i]["y"], players[i]["crs"], sprites)
-            if players[i]["bubble"][0] == True:
-                p.image = die_img
+            #if players[i]["bubble"][0] == True:
+            #    p.image = die_img
+            if players[i]["bubble"][0] == True or players[i]["bubble"][0] == "DIE":
+                my_frame = int((time.time() - players[i]["bubble"][1])*30)
+                for i in range(0, 7):
+                    if my_frame >= 20*i and my_frame <= 20*(i+1):
+                        p.image = bubble_img[i]
+                if my_frame >= 140:
+                    for i in range(7, 19):
+                        if my_frame >= 140 + 5*(i-7) and my_frame <= 140 * 5*(i-6):
+                            p.image = bubble_img[i]
+                if my_frame >= 200:
+                    p.image = bubble_img[18]
             moving_sprites.add(p)
     
     visible_sprites.draw(screen)
@@ -122,8 +136,8 @@ def redraw_window(players, balloons, booms, current_id, sprites):
                   
 
     water_sprites.draw(screen)
-    moving_sprites.draw(screen)
     item_sprites.draw(screen)
+    moving_sprites.draw(screen)
     over_sprites.draw(screen)
     
 
@@ -373,10 +387,10 @@ while SB == 0:
     if room == 0: # 참가 or 방 생성 화면
         clock.tick(60)
         pygame.display.set_mode((900, 700))
-        input_box1 = InputBox(420, 527, 170, 32) #ID
+        input_box1 = InputBox(543, 565, 170, 32) #ID
         input_boxes = [input_box1]
-        button_c = button(position=(454, 668), size=(97, 28), clr=(220, 220, 220), cngclr=(255, 0, 0), func=fn_create, text='CreateRoom', visible = True)
-        button_e = button(position=(454, 468), size=(97, 28), clr=(220, 220, 220), cngclr=(255, 0, 0), func=fn_enter, text='EnterRoom', visible = True)
+        button_c = button(position=(247, 607), size=(140, 88), clr=(220, 220, 220), cngclr=(255, 0, 0), func=fn_create, text='CreateRoom', visible = False)
+        button_e = button(position=(575, 633), size=(290, 30), clr=(220, 220, 220), cngclr=(255, 0, 0), func=fn_enter, text='EnterRoom', visible = False)
         button_list = [button_c, button_e]
 
         while True:
@@ -388,6 +402,7 @@ while SB == 0:
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 1:
                         pos = pygame.mouse.get_pos()
+                        print(pos)
                         if button_c.rect.collidepoint(pos):
                             room = button_c.call_back(server)
                         if button_e.rect.collidepoint(pos):
@@ -395,7 +410,7 @@ while SB == 0:
             for box in input_boxes: # 박스 정보 업데이트하기
                 box.update()
             screen.fill((30, 30, 30))
-            screen.blit(register_img, (0, 0)) # 배경 띄우기
+            screen.blit(create_room_img, (0, 0)) # 배경 띄우기
             for box in input_boxes: # 박스 그리기
                 box.draw(screen)
             for b in button_list: # 버튼 그리기
@@ -435,6 +450,8 @@ while SB == 0:
                 
                 myfont = pygame.font.SysFont("Sans", 17, bold = True) 
                 ready_idx = 0
+                roomcode_text = myfont.render(str(room), True, (0, 0, 0))
+                screen.blit(roomcode_text, (160, 19))
                 for keys in room_ready: # 사람별로 준비창 등등 띄울 예정
                     screen.blit(be_img, (38+120*ready_idx, 85))
                     nickname_text = myfont.render(players[keys]["nickname"], True, (0, 0, 0))
@@ -574,6 +591,10 @@ while SB == 0:
                         down_go = True
                     elif event.key == pygame.K_SPACE:
                         space_go = True
+                    elif event.key == pygame.K_a:
+                        if players[current_id]["bubble"][0] == True:
+                            data = ("revival", (i[1]//64, i[0]//64))    # 바늘써서 부활
+                            players, balloons, booms, WORLD_MAP, item_map = server.send(data)    
                 elif event.type == pygame.KEYUP:
                     if event.key == pygame.K_LEFT:
                         left_go = False
@@ -592,7 +613,7 @@ while SB == 0:
             
             data = "move " + str(player1.x) + " " + str(player1.y) + " " + str(player1.current_sprite)
 
-            players, balloons, booms, WORLD_MAP, item_map = server.send(data)
+            #players, balloons, booms, WORLD_MAP, item_map = server.send(data)
             
             for i in booms:
                 waterrect = pygame.Rect(i[0], i[1], 64, 64)
@@ -600,14 +621,15 @@ while SB == 0:
                     if players[current_id]["bubble"][0] == False:
                         players[current_id]["bubble"] = (True, time.time())
                         data = ("bubble", players[current_id]["bubble"])
-            players, balloons, booms, WORLD_MAP, item_map = server.send(data)
+            #players, balloons, booms, WORLD_MAP, item_map = server.send(data)
             
-            if players[current_id]["bubble"][0] == True:
+            if players[current_id]["bubble"][0] == True or players[current_id]["bubble"][0] == "DIE":
                 my_frame = int((time.time() - players[current_id]["bubble"][1])*30)
                 for i in range(0, 7):
                     if my_frame >= 20*i and my_frame <= 20*(i+1):
                         player1.image = bubble_img[i]
                 if my_frame >= 140:
+                    players[current_id]["bubble"] = ("DIE", players[current_id]["bubble"][1])
                     for i in range(7, 19):
                         if my_frame >= 140 + 5*(i-7) and my_frame <= 140 * 5*(i-6):
                             player1.image = bubble_img[i]
@@ -615,6 +637,7 @@ while SB == 0:
                     player1.image = bubble_img[18]
                     
                 #player1.image = die_img
+            players, balloons, booms, WORLD_MAP, item_map = server.send(data)
             
             #print(now_count)
             if space_go == True and ball_released == 0 and players[current_id]["bubble"][0] == False: # 캐릭터가 물풍선에 갇히면 못놓게
