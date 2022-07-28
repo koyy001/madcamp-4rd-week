@@ -38,7 +38,7 @@ class player(pygame.sprite.Sprite):
         self.is_animating = False
         self.speed = 0.2   # 아이템에 따라 달라짐
 
-	# 해당 player의 이미지를 screen의 어느 위치에 띄울지 정해주는 함수
+   # 해당 player의 이미지를 screen의 어느 위치에 띄울지 정해주는 함수
     def show(self):
         self.screen.blit(self.image, (self.x,self.y))
 
@@ -46,6 +46,8 @@ class player(pygame.sprite.Sprite):
     def change_location(self, left_go,right_go,up_go,down_go,obstacle_sprites):
         if left_go == True:
             self.x -= self.move
+            if self.x<48:
+                self.x+=self.move
             self.c_rect = pygame.Rect(self.x+20, self.y+40, 40, 40)
             if self.current_sprite < 8:
                 self.current_sprite = 8
@@ -62,6 +64,8 @@ class player(pygame.sprite.Sprite):
             
         elif right_go == True:
             self.x += self.move
+            if self.x>1216:
+                self.x-=self.move
             self.c_rect = pygame.Rect(self.x+20, self.y+40, 40, 40)
             if self.current_sprite < 12:
                 self.current_sprite = 12
@@ -78,6 +82,8 @@ class player(pygame.sprite.Sprite):
             
         elif up_go == True:
             self.y -= self.move
+            if self.y<48:
+                self.y+=self.move
             self.c_rect = pygame.Rect(self.x+20, self.y+40, 40, 40)
             if self.current_sprite < 4:
                 self.current_sprite = 4
@@ -94,6 +100,8 @@ class player(pygame.sprite.Sprite):
             
         elif down_go == True:
             self.y += self.move
+            if self.y>704:
+                self.y-=self.move
             self.c_rect = pygame.Rect(self.x+20, self.y+40, 40, 40)
             if self.current_sprite < 0:
                 self.current_sprite = 0

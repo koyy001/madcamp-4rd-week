@@ -7,6 +7,7 @@ title = "crazy arcade"
 # color
 black = (0,0,0)
 white = (255,255,255)
+gray = (50, 50, 50)
 
 tilesize = 64
 

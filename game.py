@@ -101,7 +101,7 @@ erased_tile=[]
 
 #def redraw_window(players, m_list, current_id, sprites):
 def redraw_window(players, balloons, booms, current_id, sprites, sprites2):
-    screen.fill(white)
+    screen.fill(gray)
     #print(balloons)
     
     for i in players: ## {1: {data}, 2:{data}, ...}
@@ -284,7 +284,7 @@ while True: # 전체적인 로그인 및 회원가입 과정
             clock.tick(30)
         
     else:
-        server.disconnect()
+        server.disconnect() 
         quit()
 
 
@@ -937,22 +937,37 @@ with mp_hands.Hands(
                     my_frame = int((time.time() - players[current_id]["bubble"][1])*30)
                     for i in range(0, 7):
                         if my_frame >= 20*i and my_frame <= 20*(i+1):
-                            player1.image = bubble_img[i]
+                            if character == 1:
+                                player1.image = bubble_img[i]
+                            elif character == 2:
+                                player1.image = bubble_img2[i]
                     if my_frame >= 140:
                         players[current_id]["bubble"] = ("DIE", players[current_id]["bubble"][1]) 
                         data = ("die", players[current_id]["bubble"])
                         for i in range(7, 19):
                             if my_frame >= 140 + 5*(i-7) and my_frame <= 140 * 5*(i-6):
-                                player1.image = bubble_img[i]
+                                if character == 1:
+                                    player1.image = bubble_img[i]
+                                elif character == 2:
+                                    player1.image = bubble_img2[i]
                     if my_frame >= 200:
-                        player1.image = bubble_img[18]
+                        if character == 1:
+                            player1.image = bubble_img[i]
+                        elif character == 2:
+                            player1.image = bubble_img2[i]
                 if players[current_id]["bubble"][0] == "Revival":
                     my_frame = int((time.time() - players[current_id]["bubble"][1])*30)
                     for i in range(0, 9):
                         if my_frame >= 5*i and my_frame <= 5*(i+1):
-                            player1.image = revival_img[i]
+                            if character == 1:
+                                player1.image = revival_img[i]
+                            elif character == 2:
+                                player1.image = revival_img2[i]
                         if my_frame >= 45:
-                            player1.image = revival_img[8]
+                            if character == 1:
+                                player1.image = revival_img[8]
+                            elif character == 2:
+                                player1.image = revival_img2[8]
                             players[current_id]["bubble"] = (False, None) 
                             data = ("revived", players[current_id]["bubble"])
                         
@@ -995,7 +1010,7 @@ with mp_hands.Hands(
                                 else :
                                     j+=1
                         #m_list.append(balloon1_copy)
-                        balloons[current_id].append((bzallx, bally, ballinitTime))
+                        balloons[current_id].append((ballx, bally, ballinitTime))
                         
                         ball_released = 1
                         ball_cur +=1
@@ -1012,7 +1027,7 @@ with mp_hands.Hands(
                 space_go = False # cv 할때..
                 screen.fill(white)
                 #redraw_window(players, m_list, current_id, sprites)
-                redraw_window(players, balloons, booms, current_id, sprites)
+                redraw_window(players, balloons, booms, current_id, sprites, sprites2)
                 
                 
                 
@@ -1022,5 +1037,4 @@ with mp_hands.Hands(
 server.disconnect()
 pygame.quit()
 quit()
-
 
