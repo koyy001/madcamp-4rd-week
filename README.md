@@ -17,20 +17,18 @@ Language : python
 IDE : visual studio code
 
 ## Description
-
+손 인식을 적용한 크레이지 아케이드 게임
 
 ## Implementation Method
-
+pygame 라이브러리를 사용하여 game ui 및 알고리즘을 구현하였다.
+손 인식은 openCV (openPose)로 구현하였다.
 
 ## Usage
 ### tab1 – login page                   
 
-|첫 화면|회원가입 화면|이름생성 화면|
+|로그인 화면|회원가입 화면|방 생성 화면|
 |---|---|---|
 |![image](https://user-images.githubusercontent.com/91946706/181479253-ea2149b4-6c36-4477-8750-5d49e21573c1.png)|![image](https://user-images.githubusercontent.com/91946706/181479385-bd755dbb-ddcb-44a3-bf4c-68ff415a334c.png)|![image](https://user-images.githubusercontent.com/91946706/181479498-2bc1455a-a6c5-4d21-a171-e32cf3740251.png)|
-
-* 계정이 등록되어있지 않은 경우 : 회원가입을 통해 새 계정을 등록할 수 있고, 이때 키울 넙죽이의 이름을 정할 수 있다. 이미 가입된 회원은 새로운 회원가입이 불가능하다.
-* 계정이 등록되어 있는 경우 : 로그인을 통해 해당 계정의 데이터들에 접근할 수 있다. 이때 비밀번호나 아이디가 틀리면 접근하지 못한다.
 
 ### tab2.1 – 넙죽이 키우기 page                   
 
