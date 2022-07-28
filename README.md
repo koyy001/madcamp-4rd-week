@@ -38,7 +38,9 @@ pygame 라이브러리를 사용하여 game ui 및 알고리즘을 구현하였�
 
 ### tab2.2 – game page                 
 
-|게임 시작화면|웹캠|배찌 사망|
-|---|---|---|
-|![image](https://user-images.githubusercontent.com/91946706/181479806-b3b7e45d-6c9f-4646-9fde-c9d35b8a6831.png)|![image](https://user-images.githubusercontent.com/91946706/181482255-22efb129-a782-4c9c-a950-c537ab28ebbd.png)|![image](https://user-images.githubusercontent.com/91946706/181479857-22c61609-cfe9-45af-af76-d7c7aedf76dd.png)|
+|게임 시작화면|웹캠|게임 진행화면|배찌 사망|
+|---|---|---|---|
+|![image](https://user-images.githubusercontent.com/91946706/181479806-b3b7e45d-6c9f-4646-9fde-c9d35b8a6831.png)|![image](https://user-images.githubusercontent.com/91946706/181482255-22efb129-a782-4c9c-a950-c537ab28ebbd.png)|![image](https://user-images.githubusercontent.com/91946706/181483197-0a40df22-50b2-4ac3-a3a7-a191fd1a9497.png)|![image](https://user-images.githubusercontent.com/91946706/181479857-22c61609-cfe9-45af-af76-d7c7aedf76dd.png)|
 
+### 일화
+웹캠이 방준형 얼굴을 보로 인식해서 물풍선을 쐈다. (ㅈㄴ웃기다)
