@@ -54,6 +54,12 @@ clock = pygame.time.Clock()
 current_id = -3 # 처음 상태는 -3
 mod = 0
 
+
+win_img = pygame.image.load("win.png").convert_alpha()
+win_img = pygame.transform.scale(win_img, (856, 158))
+
+lose_img = pygame.image.load("lose.png").convert_alpha()
+lose_img = pygame.transform.scale(lose_img, (856, 158))
 #image들 받아오는 부분
 intro_img = pygame.image.load("intro.jpg")
 intro_img = pygame.transform.scale(intro_img, (900, 700))
@@ -96,6 +102,8 @@ ball_cur = 0
 water_power = 1
 
 erased_tile=[]
+
+WON = 0 # 0: not defined, 1: lose, 2: won
 
 
 
@@ -174,6 +182,11 @@ def redraw_window(players, balloons, booms, current_id, sprites, sprites2):
     item_sprites.draw(screen)
     moving_sprites.draw(screen)
     over_sprites.draw(screen)
+    
+    if WON == 1:
+        screen.blit(lose_img, (260, 300))
+    elif WON == 2:
+        screen.blit(win_img, (250, 300))
     
 
     #return balloons # 사라진 벌룬 반환
@@ -944,6 +957,7 @@ with mp_hands.Hands(
                     if my_frame >= 140:
                         players[current_id]["bubble"] = ("DIE", players[current_id]["bubble"][1]) 
                         data = ("die", players[current_id]["bubble"])
+                        WON = 1 # 1: die
                         for i in range(7, 19):
                             if my_frame >= 140 + 5*(i-7) and my_frame <= 140 * 5*(i-6):
                                 if character == 1:
@@ -973,6 +987,17 @@ with mp_hands.Hands(
                         
                     #player1.image = die_img
                 players, balloons, booms, WORLD_MAP, item_map = server.send(data)
+                
+                pls = len(players)
+                aliv = player_speed
+                for keys in players:
+                    if players[keys]["bubble"][0] == "DIE":
+                        pls -= 1
+                
+                if pls == 1 and WON != 1:
+                    WON = 2 # 승리
+                    
+                    
                 data = ""
                 
                 #print(now_count)
