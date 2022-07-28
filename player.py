@@ -31,7 +31,7 @@ class player(pygame.sprite.Sprite):
         self.x = x
         self.y = y
         
-        self.c_rect = pygame.Rect(self.x+15, self.y+30, 50, 50)
+        self.c_rect = pygame.Rect(self.x+20, self.y+40, 40, 40)
         
         # default
         self.move = 5   # 아이템에 따라 달라짐
@@ -46,7 +46,7 @@ class player(pygame.sprite.Sprite):
     def change_location(self, left_go,right_go,up_go,down_go,obstacle_sprites):
         if left_go == True:
             self.x -= self.move
-            self.c_rect = pygame.Rect(self.x+15, self.y+30, 50, 50)
+            self.c_rect = pygame.Rect(self.x+20, self.y+40, 40, 40)
             if self.current_sprite < 8:
                 self.current_sprite = 8
             self.current_sprite+=self.speed    # 속도 조절하는 ㅅㄲ
@@ -62,7 +62,7 @@ class player(pygame.sprite.Sprite):
             
         elif right_go == True:
             self.x += self.move
-            self.c_rect = pygame.Rect(self.x+15, self.y+30, 50, 50)
+            self.c_rect = pygame.Rect(self.x+20, self.y+40, 40, 40)
             if self.current_sprite < 12:
                 self.current_sprite = 12
             self.current_sprite+=self.speed    # 속도 조절하는 ㅅㄲ
@@ -78,7 +78,7 @@ class player(pygame.sprite.Sprite):
             
         elif up_go == True:
             self.y -= self.move
-            self.c_rect = pygame.Rect(self.x+15, self.y+30, 50, 50)
+            self.c_rect = pygame.Rect(self.x+20, self.y+40, 40, 40)
             if self.current_sprite < 4:
                 self.current_sprite = 4
             self.current_sprite+=self.speed    # 속도 조절하는 ㅅㄲ
@@ -94,7 +94,7 @@ class player(pygame.sprite.Sprite):
             
         elif down_go == True:
             self.y += self.move
-            self.c_rect = pygame.Rect(self.x+15, self.y+30, 50, 50)
+            self.c_rect = pygame.Rect(self.x+20, self.y+40, 40, 40)
             if self.current_sprite < 0:
                 self.current_sprite = 0
             self.current_sprite+=self.speed    # 속도 조절하는 ㅅㄲ
