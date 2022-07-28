@@ -14,7 +14,9 @@ gesture 인식을 적용한 크레이지 아케이드 게임
 
 ## Implementation Method
 pygame 라이브러리를 사용하여 game ui 및 알고리즘 구현
+
 손 인식은 openCV (openPose)로 구현
+
 socket으로 양방향 통신 구현
 
 ## Environment
