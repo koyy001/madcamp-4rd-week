@@ -32,16 +32,12 @@ pygame 라이브러리를 사용하여 game ui 및 알고리즘을 구현하였�
 
 ### tab2.1 – 넙죽이 키우기 page                   
 
-|첫 화면|밥먹기|
+|대기실(1명)|대기실(2명)|
 |---|---|
 |![image](https://user-images.githubusercontent.com/91946706/181479591-409edc5e-e269-4845-a3f6-73e8464cb6e6.png)|![image](https://user-images.githubusercontent.com/91946706/181479674-b40e90dd-c3da-4cb1-9f32-05111672c8c6.png)|
 
 ### tab2.2 – mini game page                   
 
-|첫 화면|밥먹기|
+|게임 시작화면|배찌 사망|
 |---|---|
 |![image](https://user-images.githubusercontent.com/91946706/181479806-b3b7e45d-6c9f-4646-9fde-c9d35b8a6831.png)|![image](https://user-images.githubusercontent.com/91946706/181479857-22c61609-cfe9-45af-af76-d7c7aedf76dd.png)|
-
-### tab2.3 – setting page                   
-
-
