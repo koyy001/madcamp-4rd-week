@@ -11,6 +11,10 @@ POSTECH 컴퓨터공학과 박정은
 
 ## Description
 gesture 인식을 적용한 크레이지 아케이드 게임
+방향키 : 손가락 방향
+물풍선 : 보자기
+바늘 : 주먹
+
 
 ## Implementation Method
 pygame 라이브러리를 사용하여 game ui 및 알고리즘 구현
@@ -39,4 +43,4 @@ socket으로 양방향 통신 구현
 |![image](https://user-images.githubusercontent.com/91946706/181479806-b3b7e45d-6c9f-4646-9fde-c9d35b8a6831.png)|![image](https://user-images.githubusercontent.com/91946706/181482255-22efb129-a782-4c9c-a950-c537ab28ebbd.png)|![image](https://user-images.githubusercontent.com/91946706/181483197-0a40df22-50b2-4ac3-a3a7-a191fd1a9497.png)|![image](https://user-images.githubusercontent.com/91946706/181479857-22c61609-cfe9-45af-af76-d7c7aedf76dd.png)|
 
 ### 일화
-웹캠이 방준형 얼굴을 보로 인식해서 물풍선을 쐈다. (ㅈㄴ웃기다)
+웹캠이 방준형 얼굴을 "보자기"로 인식해서 물풍선을 쐈다. (ㅈㄴ웃기다)
