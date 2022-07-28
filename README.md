@@ -19,13 +19,6 @@ pygame 라이브러리를 사용하여 game ui 및 알고리즘 구현
 
 socket으로 양방향 통신 구현
 
-## Environment
-OS : window
-
-Language : python
-
-IDE : visual studio code
-
 ## Usage
 ### tab1 – login page                   
 
