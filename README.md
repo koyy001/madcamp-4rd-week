@@ -2,12 +2,20 @@
 2022 Summer MadCamp Week4
 
 ## Project name
-gesture 인식을 적용한 크레이지 아케이드 게임
+몰?루 게임
 
 ## Teammates
 KAIST 전산학부 방준형
 
 POSTECH 컴퓨터공학과 박정은
+
+## Description
+gesture 인식을 적용한 크레이지 아케이드 게임
+
+## Implementation Method
+pygame 라이브러리를 사용하여 game ui 및 알고리즘 구현
+손 인식은 openCV (openPose)로 구현
+socket으로 양방향 통신 구현
 
 ## Environment
 OS : window
@@ -15,13 +23,6 @@ OS : window
 Language : python
 
 IDE : visual studio code
-
-## Description
-손 인식을 적용한 크레이지 아케이드 게임
-
-## Implementation Method
-pygame 라이브러리를 사용하여 game ui 및 알고리즘을 구현하였다.
-손 인식은 openCV (openPose)로 구현하였다.
 
 ## Usage
 ### tab1 – login page                   
