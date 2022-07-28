@@ -104,15 +104,23 @@ def redraw_window(players, balloons, booms, current_id, sprites):
             #    p.image = die_img
             if players[i]["bubble"][0] == True or players[i]["bubble"][0] == "DIE":
                 my_frame = int((time.time() - players[i]["bubble"][1])*30)
-                for i in range(0, 7):
-                    if my_frame >= 20*i and my_frame <= 20*(i+1):
-                        p.image = bubble_img[i]
+                for j in range(0, 7):
+                    if my_frame >= 20*j and my_frame <= 20*(j+1):
+                        p.image = bubble_img[j]
                 if my_frame >= 140:
-                    for i in range(7, 19):
-                        if my_frame >= 140 + 5*(i-7) and my_frame <= 140 * 5*(i-6):
-                            p.image = bubble_img[i]
+                    for j in range(7, 19):
+                        if my_frame >= 140 + 5*(i-7) and my_frame <= 140 * 5*(j-6):
+                            p.image = bubble_img[j]
                 if my_frame >= 200:
                     p.image = bubble_img[18]
+            
+            if players[i]["bubble"][0] == "Revival":
+                my_frame = int((time.time() - players[i]["bubble"][1])*30)
+                for j in range(0, 9):
+                    if my_frame >= 5*j and my_frame <= 5*(j+1):
+                        p.image = revival_img[j]
+                    if my_frame >= 45:
+                        p.image = revival_img[8]
             moving_sprites.add(p)
     
     visible_sprites.draw(screen)
@@ -368,6 +376,20 @@ bubble_img.append(pygame.image.load('asset/bubble/18.png').convert_alpha())
 for i in range(0, 19):
     bubble_img[i] = pygame.transform.scale(bubble_img[i], (80, 80))
 
+revival_img = []
+revival_img.append(pygame.image.load('asset/bubble/revival/0.png').convert_alpha())
+revival_img.append(pygame.image.load('asset/bubble/revival/1.png').convert_alpha())
+revival_img.append(pygame.image.load('asset/bubble/revival/2.png').convert_alpha())
+revival_img.append(pygame.image.load('asset/bubble/revival/3.png').convert_alpha())
+revival_img.append(pygame.image.load('asset/bubble/revival/4.png').convert_alpha())
+revival_img.append(pygame.image.load('asset/bubble/revival/5.png').convert_alpha())
+revival_img.append(pygame.image.load('asset/bubble/revival/6.png').convert_alpha())
+revival_img.append(pygame.image.load('asset/bubble/revival/7.png').convert_alpha())
+revival_img.append(pygame.image.load('asset/bubble/revival/8.png').convert_alpha())
+for i in range(0, 9):
+    revival_img[i] = pygame.transform.scale(revival_img[i], (80, 80))
+
+
 
 if balloon_img[-3:] == "png":
     balloon_img = pygame.image.load(balloon_img).convert_alpha()
@@ -381,6 +403,7 @@ room = 0 # 0: Lobby, else: n번 룸
 
 game_started = False
 room_ready = {}
+
 
 SB =0
 while SB == 0:
@@ -593,7 +616,7 @@ while SB == 0:
                         space_go = True
                     elif event.key == pygame.K_a:
                         if players[current_id]["bubble"][0] == True:
-                            data = ("revival", (i[1]//64, i[0]//64))    # 바늘써서 부활
+                            data = ("revival", (1, 1))    # 바늘써서 부활
                             players, balloons, booms, WORLD_MAP, item_map = server.send(data)    
                 elif event.type == pygame.KEYUP:
                     if event.key == pygame.K_LEFT:
@@ -629,15 +652,26 @@ while SB == 0:
                     if my_frame >= 20*i and my_frame <= 20*(i+1):
                         player1.image = bubble_img[i]
                 if my_frame >= 140:
-                    players[current_id]["bubble"] = ("DIE", players[current_id]["bubble"][1])
+                    players[current_id]["bubble"] = ("DIE", players[current_id]["bubble"][1]) 
+                    data = ("die", players[current_id]["bubble"])
                     for i in range(7, 19):
                         if my_frame >= 140 + 5*(i-7) and my_frame <= 140 * 5*(i-6):
                             player1.image = bubble_img[i]
                 if my_frame >= 200:
                     player1.image = bubble_img[18]
+            if players[current_id]["bubble"][0] == "Revival":
+                my_frame = int((time.time() - players[current_id]["bubble"][1])*30)
+                for i in range(0, 9):
+                    if my_frame >= 5*i and my_frame <= 5*(i+1):
+                        player1.image = revival_img[i]
+                    if my_frame >= 45:
+                        player1.image = revival_img[8]
+                        players[current_id]["bubble"] = (False, None) 
+                        data = ("revived", players[current_id]["bubble"])
                     
                 #player1.image = die_img
             players, balloons, booms, WORLD_MAP, item_map = server.send(data)
+            data = ""
             
             #print(now_count)
             if space_go == True and ball_released == 0 and players[current_id]["bubble"][0] == False: # 캐릭터가 물풍선에 갇히면 못놓게

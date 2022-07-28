@@ -109,6 +109,5 @@ class player(pygame.sprite.Sprite):
             for sprite in obstacle_sprites:
                 if sprite.rect.colliderect(self.c_rect): # moving left
                     self.y -= self.move
-        print(self.x, self.y)
         self.rect = self.image.get_rect()
         self.rect.topleft = [self.x,self.y]
