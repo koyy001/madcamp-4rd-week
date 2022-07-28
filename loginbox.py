@@ -141,6 +141,7 @@ def fn_qmod():
 
 def fn_ready(server):
     data = "ready"
+
     return server.send(data)
 
 
